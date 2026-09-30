@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)blob:null/d754b43f-6729-47a0-977c-7265b2c19b0d -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase 1 Self-Sustainable Closed-Loop Microclimate Proof of Concept (12-Month Execution)</title>
+    <style>
+        :root {
+            --primary: #0a2e0a;
+            --secondary: #1e5c1e;
+            --accent: #c5a059;
+            --dark: #121212;
+            --light: #f4f6f4;
+            --border: #d0d7d0;
+            --card-bg: #ffffff;
+            --focus-ring: #2563eb;
+        }
+
+        body.high-contrast {
+            --primary: #000000;
+            --secondary: #00ffff;
+            --accent: #ffff00;
+            --dark: #ffffff;
+            --light: #000000;
+            --border: #ffffff;
+            --card-bg: #121212;
+            --focus-ring: #ffff00;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background-color: var(--light);
+            margin: 0;
+            padding: 24px 16px;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-top: 10px solid var(--primary);
+        }
+
+        .access-bar {
+            background-color: var(--primary);
+            color: #ffffff;
+            padding: 16px 20px;
+            border-radius: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 12px;
+            border: 2px solid var(--accent);
+        }
+
+        .access-bar h2 { margin: 0; font-size: 1.05rem; color: #ffffff; }
+
+        .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .access-btn, select.nav-dropdown {
+            background-color: #ffffff;
+            color: var(--primary);
+            border: 2px solid transparent;
+            padding: 8px 12px;
+            font-size: 0.88rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .access-btn:focus, select.nav-dropdown:focus, button:focus {
+            outline: 4px solid var(--focus-ring);
+            outline-offset: 2px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: var(--primary);
+            margin: 0;
+            font-size: 26px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        body.high-contrast .header h1 { color: #00ffff; }
+
+        .header h2 {
+            color: var(--secondary);
+            margin: 8px 0 0 0;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        body.high-contrast .header h2 { color: #ffffff; }
+
+        .consortium-badge {
+            background: #eef6ee;
+            border: 1px solid var(--secondary);
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+        body.high-contrast .consortium-badge {
+            background: #1a1a1a;
+            border-color: #00ffff;
+        }
+
+        .doctrine-banner {
+            background: var(--primary);
+            color: var(--accent);
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            letter-spacing: 1.2px;
+            border: 1px solid var(--accent);
+        }
+
+        .diagram-box {
+            background: #f8faf8;
+            border: 1px solid var(--secondary);
+            border-radius: 6px;
+            padding: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre;
+            text-align: center;
+            overflow-x: auto;
+            margin: 25px 0;
+            font-size: 11px;
+            line-height: 1.25;
+            color: var(--dark);
+        }
+        body.high-contrast .diagram-box {
+            background: #000000;
+            color: #00ff00;
+            border-color: #00ff00;
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 18px;
+            font-weight: bold;
+            border-left: 5px solid var(--accent);
+            padding-left: 12px;
+            margin-top: 35px;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+        }
+        body.high-contrast .section-title {
+            color: #00ffff;
+            border-left-color: #ffff00;
+        }
+
+        details {
+            background: #fdfdfd;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            margin-bottom: 12px;
+            padding: 12px 16px;
+            transition: background 0.3s ease;
+        }
+        body.high-contrast details {
+            background: #000000;
+            border-color: #00ffff;
+        }
+
+        details[open] {
+            background: #f4f8f4;
+            border-color: var(--secondary);
+        }
+        body.high-contrast details[open] {
+            background: #1a1a1a;
+            border-color: #ffff00;
+        }
+
+        summary {
+            font-weight: bold;
+            color: var(--primary);
+            cursor: pointer;
+            outline: none;
+            font-size: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        body.high-contrast summary { color: #00ffff; }
+
+        .details-content {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--border);
+        }
+
+        .read-section-btn {
+            background-color: var(--secondary);
+            color: #ffffff;
+            border: none;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        body.high-contrast .read-section-btn {
+            background-color: #00ffff;
+            color: #000000;
+        }
+
+        .teachability-box {
+            background: #f0f7f0;
+            border-left: 4px solid var(--secondary);
+            padding: 12px 16px;
+            margin: 12px 0;
+            font-size: 0.92rem;
+            border-radius: 0 4px 4px 0;
+        }
+        body.high-contrast .teachability-box {
+            background: #112211;
+            border-left-color: #00ffff;
+            color: #ffffff;
+        }
+
+        .inclusion-box {
+            background: #fdf8ec;
+            border-left: 4px solid var(--accent);
+            padding: 12px 16px;
+            margin: 12px 0;
+            font-size: 0.92rem;
+            border-radius: 0 4px 4px 0;
+        }
+        body.high-contrast .inclusion-box {
+            background: #222211;
+            border-left-color: #ffff00;
+            color: #ffffff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid var(--border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: #ffffff;
+        }
+        body.high-contrast th {
+            background-color: #333333;
+            color: #ffff00;
+        }
+
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            text-align: center;
+            color: #666666;
+        }
+        body.high-contrast .footer { color: #ffffff; }
+
+        .lang-card { display: none; }
+        .lang-card.active { display: block; }
+
+        .interactive-section { display: block; }
+        .interactive-section.hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="container" id="main-content">
+
+    <!-- MASTER CONTROL TOOLBAR -->
+    <div class="access-bar" role="region" aria-label="Universal Control Toolbar">
+        <h2>♿ Master Control &amp; Universal Access Hub</h2>
+        <div class="btn-group">
+            <select id="sectionSelector" class="nav-dropdown" onchange="filterSection(this.value)" aria-label="Select Execution Phase View">
+                <option value="all">View Complete Master Architecture</option>
+                <option value="p1-architecture">1. Solar-Thermal &amp; Bio-Digester Closed-Loop Architecture</option>
+                <option value="p1-timeline">2. 12-Month Proof-of-Concept Timeline (Months 1–12)</option>
+                <option value="p1-financials">3. Revenue Velocity &amp; Financial Margins (Months 1–12)</option>
+                <option value="p1-governance">4. Executive Governance &amp; Universal Access Doctrine</option>
+            </select>
+            <button class="access-btn" onclick="toggleHighContrast()">High Contrast</button>
+            <button class="access-btn" onclick="setLanguage('en')">English</button>
+            <button class="access-btn" onclick="setLanguage('zu')">isiZulu</button>
+            <button class="access-btn" onclick="setLanguage('st')">Sesotho</button>
+            <button class="access-btn" onclick="speakCurrentLang()">🔊 Read Overview</button>
+            <button class="access-btn" onclick="stopSpeech()">⏹️ Stop Audio</button>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>Phase 1: Closed-Loop Bio-Solar Engine Microgrid</h1>
+        <h2>12-Month Solar-Thermal &amp; Anaerobic Bio-Digester Energy Sovereignty for Swine &amp; Poultry Nursery Pods</h2>
+    </div>
+
+    <div class="doctrine-banner">
+        OPERATIONAL STANDARD: | ZERO-LEAK | ZERO-WASTE | ZERO-MORTALITY | UNIVERSAL ACCESSIBILITY
+    </div>
+
+    <!-- CONSORTIUM IDENTIFICATION -->
+    <div class="consortium-badge">
+        <strong>Strategic Enterprise Leadership &amp; Operational Command:</strong><br>
+        • <strong>Lwandile Engineering Projects (Pty) Ltd</strong> | CIPC: 2024/451894/07 | <em>Director: Sipho Wiseman Khuzwayo</em><br>
+        • <strong>Insephe Projects (Pty) Ltd</strong> | CIPC: 2026/011161/07 | <em>Director: Senzo Innocent Mkhize</em><br>
+        • <strong>Strategic Anchor &amp; Executive Oversight:</strong> <em>Phakamile Mbonambi</em> | <strong>Protocol:</strong> Scapush Precision Execution<br>
+        • <strong>Institutional Co-Funding Target:</strong> IDC (49% Public Equity Participation) &amp; DMRE<br>
+        • <strong>Current Date:</strong> 15/09/2026
+    </div>
+
+    <!-- CLOSED LOOP DIAGRAM -->
+    <div class="diagram-box" role="img" aria-label="Self-Sustainable Solar and Bio-Digester Closed-Loop Diagram">
+┌───────────────────────────────────────────────────────────────────────────────────────────┐
+│              SELF-SUSTAINABLE CLOSED-LOOP BIO-SOLAR ENGINE (PHASE 1 POC)               │
+└─────────────────────────────────────────────┬─────────────────────────────────────────────┘
+                                              │
+    ┌─────────────────────────────────────────┴─────────────────────────────────────────┐
+    │                                                                                   │
+    ▼                                                                                   ▼
+┌────────────────────────────────────────┐                         ┌────────────────────────────────────────┐
+│   SOLAR-THERMAL COLLECTORS &amp; BESS      │                         │     ANAEROBIC BIO-DIGESTOR MATRIX      │
+│  Daytime radiant water heating &amp; solar  │                         │  Continuous biogas combustion &amp; waste  │
+│  electricity for climate pod pumps.    │                         │  heat loop for night floor warming.    │
+└───────────────────┬────────────────────┘                         └───────────────────┬────────────────────┘
+                    │                                                                  │
+                    └───────────────────────────────┬──────────────────────────────────┘
+                                                    │ Combined 24/7 Thermal (32°C Base)
+                                                    ▼
+┌───────────────────────────────────────────────────────────────────────────────────────────┐
+│                           SWINE &amp; POULTRY MICROCLIMATE PODS                               │
+│  Zero-Mortality Nursery Habitat | High Weight Gain Acceleration | Zero Environmental Drafts  │
+└─────────────────────────────────────────────┬─────────────────────────────────────────────┘
+                                              │
+                                              │ Continuous Manure &amp; Slurry Feedstock Flow
+                                              ▼
+┌───────────────────────────────────────────────────────────────────────────────────────────┐
+│                            CLOSED-LOOP MANURE RECOVERY SLURRY                             │
+│  Gravity-fed, zero-leak pit capture returning 100% of organic waste directly back into   │
+│  the Anaerobic Bio-Digester to generate next-cycle biogas &amp; bio-fertilizer.               │
+└───────────────────────────────────────────────────────────────────────────────────────────┘
+    </div>
+
+    <div id="lang-en" class="lang-card active">
+
+        <!-- SECTION 1: CLOSED LOOP ARCHITECTURE -->
+        <div id="sec-p1-architecture" class="interactive-section">
+            <div class="section-title">1. Solar-Thermal &amp; Bio-Digester Closed-Loop Architecture</div>
+
+            <details id="det-1-1" open="">
+                <summary>1.1 Dual-Source Thermal &amp; Power Microclimate Systems <span>▼</span></summary>
+                <div class="details-content">
+                    <button class="read-section-btn" onclick="speakBlock('det-1-1')">🔊 Read Section Aloud</button>
+                    <p>Phase 1 operates as a completely off-grid, self-sustaining microclimate ecosystem. Heating and electrical power rely exclusively on localized natural resources harvested on-site, totally insulating operations from municipal grid failures or fuel price shocks.</p>
+                    <ul>
+                        <li><strong>Solar-Thermal Collector Array:</strong> Solar collectors capture daytime heat directly into insulated hydronic thermal storage buffer tanks, maintaining pod floor temperatures at 32°C throughout daylight hours with zero fuel cost.</li>
+                        <li><strong>Anaerobic Bio-Digester Thermal Engine:</strong> High-solids anaerobic digesters utilize continuous swine and poultry manure feedstock to produce biogas. Biogas boilers auto-ignite during nighttime and cold fronts to sustain unbroken 24/7 hydronic heating loops.</li>
+                        <li><strong>Solar PV &amp; BESS Subsystem:</strong> A dedicated solar photovoltaic system paired with Battery Energy Storage Systems (BESS) powers low-voltage circulation pumps, positive-pressure air scrubbers, and LED nursery lighting.</li>
+                        <li><strong>Accelerated Growth micro-Environment:</strong> Maintaining temperature stability without thermal shock optimizes animal feed conversion ratios (FCR) by up to 30%, speeding up livestock growth cycles.</li>
+                    </ul>
+
+                    <div class="teachability-box">
+                        <strong>📖 Teachability Breakdown:</strong> During the day, the sun warms water pipes under the baby animals. At night, gas made from the farm's animal dung burns to keep those same pipes warm. Solar panels power the water pumps and lights. Nothing is bought from outside, making the farm fully self-sufficient.
+                    </div>
+
+                    <div class="inclusion-box">
+                        <strong>♿ Disability Community Inclusion &amp; Accommodations:</strong> System controls feature automated self-balancing valves with visual status lights and voice-assisted diagnostic alerts, allowing operators with visual, physical, or auditory impairments to monitor thermal balances independently.
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- SECTION 2: 12-MONTH POC TIMELINE -->
+        <div id="sec-p1-timeline" class="interactive-section">
+            <div class="section-title">2. 12-Month Proof-of-Concept Timeline (Months 1–12)</div>
+
+            <details id="det-2-1" open="">
+                <summary>2.1 Four-Quarter Execution Roadmap <span>▼</span></summary>
+                <div class="details-content">
+                    <button class="read-section-btn" onclick="speakBlock('det-2-1')">🔊 Read Section Aloud</button>
+                    <p>The 12-month Proof-of-Concept (POC) establishes verified performance metrics, zero-mortality validation, and self-sustaining energy autonomy ahead of Phase 2 commercial scaling.</p>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Quarter / Months</th>
+                                <th>Operational Target</th>
+                                <th>Technical Milestones</th>
+                                <th>Closed-Loop Verification</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Q1 (Months 1–3)</strong></td>
+                                <td>Site civil works, pod installation &amp; core thermal integration.</td>
+                                <td>Deploy solar-thermal panels, micro-digesters, and underfloor hydronic piping across initial poultry and swine nursery pods.</td>
+                                <td>100% off-grid thermal generation established during baseline testing.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Q2 (Months 4–6)</strong></td>
+                                <td>First livestock stocking &amp; zero-mortality commissioning.</td>
+                                <td>Introduce first brooding and farrowing cycles; monitor positive-pressure scrubbers and thermal stability at 32°C.</td>
+                                <td>Mortality drops to 0%; 100% manure capture directed to bio-digesters.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Q3 (Months 7–9)</strong></td>
+                                <td>Accelerated growth cycle &amp; biogas energy autonomy.</td>
+                                <td>Achieve self-sustaining biogas production; eliminate auxiliary heating fuel entirely; measure 30% faster growth rates.</td>
+                                <td>Bio-digester output meets 100% of nighttime thermal load requirements.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Q4 (Months 10–12)</strong></td>
+                                <td>Full POC validation &amp; financial velocity sign-off.</td>
+                                <td>Finalize 12-month data audit proving zero grid dependency, zero waste leakage, zero livestock mortality, and high margin velocity.</td>
+                                <td>Bankable POC dossier certified for Phase 2 &amp; 3 national rollout.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="teachability-box">
+                        <strong>📖 Teachability Breakdown:</strong> First 3 months: Build solar and digester systems. Next 3 months: Put animals in and stop deaths. Next 3 months: Run full heat from dung gas. Final 3 months: Audit success and prove the project makes huge profits safely.
+                    </div>
+
+                    <div class="inclusion-box">
+                        <strong>♿ Disability Community Inclusion &amp; Accommodations:</strong> All pod structures engineered during Q1 construction feature step-free level thresholds, wide door frames (1,200mm minimum), and low-height control panels accessible to wheelchair users.
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- SECTION 3: REVENUE & FINANCIAL MARGINS -->
+        <div id="sec-p1-financials" class="interactive-section">
+            <div class="section-title">3. Revenue Velocity &amp; Financial Margins (Months 1–12)</div>
+
+            <details id="det-3-1" open="">
+                <summary>3.1 Zero-Mortality Financial Margin Multiplier <span>▼</span></summary>
+                <div class="details-content">
+                    <button class="read-section-btn" onclick="speakBlock('det-3-1')">🔊 Read Section Aloud</button>
+                    <p>By eliminating energy utility bills and protecting 100% of newborn livestock, the microclimate model generates superior unit economics compared to traditional livestock farming.</p>
+                    <ul>
+                        <li><strong>Zero Energy Utility Expense:</strong> Combining solar thermal and self-generated biogas reduces farm heating and electricity overheads to R0 per kWh.</li>
+                        <li><strong>Maximum Feed-to-Mass Efficiency:</strong> Animals kept at constant 32°C optimal temperature convert food into bodily mass rather than burning calories to stay warm.</li>
+                        <li><strong>Zero Mortality Capital Preservation:</strong> Rescuing the 15%–25% of livestock typically lost to cold stress converts lost revenue directly into gross operational profit margins.</li>
+                        <li><strong>Targeted Financial Velocity:</strong> Delivers gross margins between 75% and 85% starting within the first 8 to 12 weeks of operational cycles.</li>
+                    </ul>
+
+                    <div class="teachability-box">
+                        <strong>📖 Teachability Breakdown:</strong> Zero electricity bills plus zero dead animals plus faster growing stock equals maximum profit margins (up to 85%) that accumulate rapidly within 12 months.
+                    </div>
+
+                    <div class="inclusion-box">
+                        <strong>♿ Disability Community Inclusion &amp; Accommodations:</strong> Financial accounting software used to track phase velocity incorporates full screen-reader compatibility and simplified keyboard shortcuts for disabled financial administrators.
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- SECTION 4: GOVERNANCE -->
+        <div id="sec-p1-governance" class="interactive-section">
+            <div class="section-title">4. Executive Governance &amp; Universal Access Doctrine</div>
+
+            <details id="det-4-1" open="">
+                <summary>4.1 Scapush Precision Execution Standard <span>▼</span></summary>
+                <div class="details-content">
+                    <button class="read-section-btn" onclick="speakBlock('det-4-1')">🔊 Read Section Aloud</button>
+                    <p>The 12-Month Phase 1 POC operates strictly under the Scapush Precision Execution protocol, ensuring complete strategic alignment and zero equity dilution for the founding directors.</p>
+                    <ul>
+                        <li><strong>Operational Directors:</strong> Jointly commanded by <strong>Lwandile Engineering Projects (Pty) Ltd</strong> (Director: Sipho Wiseman Khuzwayo) and <strong>Insephe Projects (Pty) Ltd</strong> (Director: Senzo Innocent Mkhize).</li>
+                        <li><strong>Zero-Leak, Zero-Waste, Zero-Mortality Mandate:</strong> Strict environmental and biological compliance guarantees zero environmental contamination and maximum animal welfare.</li>
+                        <li><strong>Universal Accessibility Commitment:</strong> Facilities are designed to ensure seamless integration and long-term employment of individuals with physical and sensory disabilities across all farm operations.</li>
+                    </ul>
+
+                    <div class="teachability-box">
+                        <strong>📖 Teachability Breakdown:</strong> Scapush Precision ensures our leadership stays in firm control, protects the environment completely, includes people with disabilities, and turns animal care into an exact science.
+                    </div>
+
+                    <div class="inclusion-box">
+                        <strong>♿ Disability Community Inclusion &amp; Accommodations:</strong> Dedicated employment quotas reserve at least 10% of pod management and supervisory roles for disabled workers, supported by custom adaptive tools and ergonomic workspaces.
+                    </div>
+                </div>
+            </details>
+        </div>
+
+    </div>
+
+    <!-- ISIZULU TRANSLATION -->
+    <div id="lang-zu" class="lang-card">
+        <div class="section-title">Isigaba Sohlelo Oluphelele Lwesikhathi Esingaba Izinyanga Zingu-12 (isiZulu)</div>
+        <details open="" id="det-zu-1">
+            <summary>Imininingwane Ye-POC Yesihlabani Ngesizulu <span>▼</span></summary>
+            <div class="details-content">
+                <button class="read-section-btn" onclick="speakBlock('det-zu-1')">🔊 Funda Ngesizulu</button>
+                <p>Isigaba sokuqala se-12 months Proof-of-Concept sisebenzisa amandla elanga (Solar Thermal) nokuyila igesi emanyolweni (Bio-Digester). Lokhu kuqinisekisa ukuthi amadokodo amaphuphu nezingulwane azenzela ukushisa namandla awo ngokugcwele ngaphandle kokuthenga igesi noma ugesi ngaphandle.</p>
+                <ul>
+                    <li><strong>Azikho Izilwane Ezifayo (Zero Mortality):</strong> Ukushisa kuhlala kumi ku-32°C imini nobusuku.</li>
+                    <li><strong>Inzuzo Esheshayo:</strong> Inzuzo ifika ku-85% ngenxa yokugcina zonke izilwane zinzima futhi ziphilile.</li>
+                    <li><strong>Abaholi Bemisebenzi:</strong> Lwandile Engineering Projects (Sipho Wiseman Khuzwayo) no-Insephe Projects (Senzo Innocent Mkhize) bekhokhelwa ngu-Phakamile Mbonambi.</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <!-- SESOTHO TRANSLATION -->
+    <div id="lang-st" class="lang-card">
+        <div class="section-title">Tlhaloso ea Morero oa Likhoeli tse 12 (Sesotho)</div>
+        <details open="" id="det-st-1">
+            <summary>Mehato ea Proof-of-Concept ka Sesotho <span>▼</span></summary>
+            <div class="details-content">
+                <button class="read-section-btn" onclick="speakBlock('det-st-1')">🔊 Balla ka Sesotho</button>
+                <p>Mohato oa pele oa likhoeli tse 12 (Proof-of-Concept) o sebelisa mocheso oa letsatsi (Solar Thermal) le khase e tsoang mantleng a liphoofolo (Bio-Digester) ho fana ka mocheso o lekaneng oa 32°C. Sena se kgaola ditsenyehelo tsa motlakase mme se sireletsa liphoofolo tsohle.</p>
+                <ul>
+                    <li><strong>Ho Felisa Leku la Liphoofolo:</strong> Liphoofolo ha di shoe ke serame, mme kholo ea tsona e potlaka ka 30%.</li>
+                    <li><strong>Katiso ea Chelete:</strong> Morero o fana ka phaello ea ho fihla ho 85% ka lebaka ho se be le ditsenyehelo tsa kantle.</li>
+                    <li><strong>Tsamaiso ea Morero:</strong> E tsamaisoa ke Sipho Wiseman Khuzwayo (Lwandile Engineering Projects) le Senzo Innocent Mkhize (Insephe Projects) ka tlhaiso-leseling ea Phakamile Mbonambi.</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+    <div class="footer">
+        Executed under Scapush Precision Protocol | Lwandile Engineering Projects (Pty) Ltd &amp; Insephe Projects (Pty) Ltd<br>
+        Lead Strategic Partners: Green Mineral S.r.l. &amp; Alseco | Public Equity Target: IDC (49%)<br>
+        Official Strategic Reference: Phakamile Mbonambi | Date: 15/09/2026
+    </div>
+
+</div>
+
+<script>
+    let currentLang = 'en';
+    let synth = window.speechSynthesis;
+
+    function toggleHighContrast() {
+        document.body.classList.toggle('high-contrast');
+    }
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        document.querySelectorAll('.lang-card').forEach(el => el.classList.remove('active'));
+        document.getElementById(`lang-${lang}`).classList.add('active');
+    }
+
+    function filterSection(val) {
+        const sections = document.querySelectorAll('.interactive-section');
+        if (val === 'all') {
+            sections.forEach(sec => sec.classList.remove('hidden'));
+        } else {
+            sections.forEach(sec => sec.classList.add('hidden'));
+            const target = document.getElementById(`sec-${val}`);
+            if (target) target.classList.remove('hidden');
+        }
+    }
+
+    const narrationTexts = {
+        'en': "Phase 1 Standalone Closed-Loop Microclimate Proof of Concept. Twelve-month duration utilizing solar-thermal collectors and anaerobic bio-digesters for complete thermal and electrical energy sovereignty. Commanded under Scapush Precision Execution by Sipho Wiseman Khuzwayo and Senzo Innocent Mkhize, with strategic reference Phakamile Mbonambi. Achieving zero mortality, accelerated livestock growth, and zero-leak zero-waste sustainability.",
+        'zu': "Isigaba sokuqala se-Proof of Concept samazinga ezinyanga zingu-12. Sisebenzisa ilanga ne-biogas ukushisa amadokodo ezinkukhu nezingulube. Sikhokhelwa ngu-Sipho Wiseman Khuzwayo no-Senzo Innocent Mkhize ngaphansi kuka-Phakamile Mbonambi.",
+        'st': "Mohato oa pele oa likhoeli tse 12 oa Proof of Concept. O sebelisa letsatsi le biogas ho futhumatsa matlo a likhoho le likolobe. O tsamaisoa ke Sipho Wiseman Khuzwayo le Senzo Innocent Mkhize tlas'a Phakamile Mbonambi."
+    };
+
+    const langVoiceCode = {
+        'en': 'en-ZA',
+        'zu': 'zu-ZA',
+        'st': 'st-ZA'
+    };
+
+    function speakCurrentLang() {
+        if (!synth) return;
+        synth.cancel();
+        const text = narrationTexts[currentLang];
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = langVoiceCode[currentLang] || 'en-ZA';
+        utterance.rate = 0.9;
+        synth.speak(utterance);
+    }
+
+    function speakBlock(elementId) {
+        if (!synth) return;
+        synth.cancel();
+        const element = document.getElementById(elementId);
+        if (!element) return;
+        
+        const textContent = Array.from(element.querySelectorAll('p, li, th, td, div.teachability-box, div.inclusion-box'))
+            .map(el => el.innerText)
+            .join('. ');
+
+        const utterance = new SpeechSynthesisUtterance(textContent);
+        utterance.lang = langVoiceCode[currentLang] || 'en-ZA';
+        utterance.rate = 0.9;
+        synth.speak(utterance);
+    }
+
+    function stopSpeech() {
+        if (synth) synth.cancel();
+    }
+</script>
+
+
+</body></html>

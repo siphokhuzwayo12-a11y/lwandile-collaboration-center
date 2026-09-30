@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<!-- saved from url=(0131)file:///C:/Users/ASUS/AppData/Local/Temp/MicrosoftEdgeDownloads/44d64fc2-c4da-4af3-b4d9-c4a12de2f1cc/gemini-code-1790798152591.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prestige Sovereign Conference Room &amp; Command Suite v19.0</title>
+    <style>
+        :root {
+            --bg-obsidian: #050709;
+            --panel-bg: rgba(12, 18, 22, 0.95);
+            --accent-emerald: #00FF9D;
+            --accent-gold: #FFB800;
+            --accent-cyan: #00E5FF;
+            --accent-danger: #FF3366;
+            --text-primary: #F0F4F8;
+            --text-secondary: #7B8B9A;
+            --border-glow: rgba(0, 255, 157, 0.25);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        
+        html, body { 
+            height: 100vh; 
+            overflow: hidden; 
+            background-color: var(--bg-obsidian); 
+            color: var(--text-primary); 
+            display: flex; 
+            flex-direction: column; 
+        }
+        
+        header {
+            display: flex; justify-content: space-between; align-items: center; padding: 10px 24px;
+            background: rgba(5, 7, 9, 0.98); border-bottom: 1px solid var(--border-glow);
+            box-shadow: 0 4px 20px rgba(0, 255, 157, 0.05); z-index: 100; height: 50px; flex-shrink: 0;
+        }
+
+        .brand-seal { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; font-size: 0.9rem; }
+        .seal-icon { width: 12px; height: 12px; background: var(--accent-emerald); border-radius: 50%; box-shadow: 0 0 12px var(--accent-emerald); }
+        .status-pill { font-size: 0.7rem; color: var(--accent-emerald); background: rgba(0, 255, 157, 0.08); padding: 4px 10px; border-radius: 20px; border: 1px solid var(--accent-emerald); letter-spacing: 1px; font-weight: 600; }
+        .status-pill.disconnected { color: var(--accent-danger); background: rgba(255, 51, 102, 0.08); border-color: var(--accent-danger); }
+
+        main { 
+            display: grid; 
+            grid-template-columns: 380px 1fr; 
+            gap: 16px; 
+            padding: 12px 20px; 
+            max-width: 1920px; 
+            margin: 0 auto; 
+            width: 100%; 
+            height: calc(100vh - 50px); 
+            overflow: hidden;
+        }
+        
+        .sidebar-scroll {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            height: 100%;
+            padding-right: 4px;
+        }
+
+        .workspace-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .card { background: var(--panel-bg); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 12px 16px; backdrop-filter: blur(8px); display: flex; flex-direction: column; }
+        .card-title { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-secondary); margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+        .card-title-text { display: flex; align-items: center; gap: 8px; }
+        .card-title-text::before { content: ''; width: 6px; height: 6px; background: var(--accent-gold); border-radius: 50%; }
+
+        /* ENLARGED HIGH-PIXEL CAMERA GRID */
+        .video-grid-vertical { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 10px; 
+            height: 340px; 
+            background: #000; 
+            border-radius: 8px; 
+            border: 1px solid var(--border-glow); 
+            padding: 10px; 
+            flex-shrink: 0; 
+        }
+        .video-feed { 
+            flex: 1; 
+            background: #0c1216; 
+            border: 1px solid rgba(255,255,255,0.12); 
+            border-radius: 8px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 8px 14px; 
+            position: relative; 
+            overflow: hidden; 
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
+        }
+        .feed-label { font-size: 0.7rem; color: var(--accent-emerald); font-family: monospace; z-index: 2; text-shadow: 0 1px 4px rgba(0,0,0,0.9); font-weight: bold; }
+        .avatar-placeholder { width: 42px; height: 42px; border-radius: 50%; background: rgba(0,255,157,0.12); border: 1.5px solid var(--accent-emerald); display: flex; align-items: center; justify-content: center; color: var(--accent-emerald); font-weight: bold; font-size: 0.9rem; z-index: 2; box-shadow: 0 0 10px rgba(0,255,157,0.2); }
+        
+        video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; display: none; background: #000; image-rendering: -webkit-optimize-contrast; }
+
+        .chat-container { display: flex; flex-direction: column; height: 160px; background: #000; border: 1px solid var(--border-glow); border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+        .chat-messages { flex: 1; padding: 8px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; font-family: monospace; font-size: 0.72rem; }
+        .chat-msg { display: flex; flex-direction: column; max-width: 90%; padding: 4px 8px; border-radius: 6px; line-height: 1.25; }
+        .chat-msg.host { align-self: flex-end; background: rgba(0, 255, 157, 0.12); border: 1px solid var(--accent-emerald); color: var(--text-primary); }
+        .chat-msg.peer { align-self: flex-start; background: rgba(0, 229, 255, 0.12); border: 1px solid var(--accent-cyan); color: var(--text-primary); }
+        .chat-msg.system { align-self: center; background: rgba(255, 184, 0, 0.1); border: 1px solid var(--accent-gold); color: var(--accent-gold); font-size: 0.65rem; text-align: center; }
+        .msg-meta { font-size: 0.6rem; color: var(--text-secondary); margin-bottom: 2px; display: flex; justify-content: space-between; gap: 6px; }
+        .chat-input-bar { display: flex; gap: 6px; padding: 6px; background: rgba(12, 18, 22, 0.98); border-top: 1px solid rgba(255,255,255,0.1); }
+
+        .input-field { width: 100%; padding: 6px 10px; background: #000; border: 1px solid rgba(0, 255, 157, 0.3); border-radius: 6px; color: var(--accent-emerald); font-family: monospace; font-size: 0.72rem; margin-bottom: 6px; }
+        .input-field:focus { outline: none; border-color: var(--accent-emerald); }
+        
+        .dateTime-row { display: flex; gap: 6px; margin-bottom: 6px; }
+        .dateTime-row input { flex: 1; margin-bottom: 0; color-scheme: dark; }
+
+        select.input-field { cursor: pointer; }
+        select.input-field option { background: #050709; color: var(--accent-emerald); }
+
+        .cabinet-workspace { display: flex; gap: 12px; width: 100%; flex: 1; position: relative; overflow: hidden; min-height: 0; }
+        .doc-viewer-area { flex: 1; height: 100%; background: #000; border: 1px solid var(--border-glow); border-radius: 8px; overflow: hidden; position: relative; }
+        
+        .vertical-cabinet-shelf { width: 200px; height: 100%; background: rgba(5, 9, 12, 0.98); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 8px; display: flex; flex-direction: column; padding: 10px; gap: 6px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; position: relative; z-index: 5; flex-shrink: 0; }
+        .vertical-cabinet-shelf.collapsed { width: 0; padding: 0; margin: 0; border: none; opacity: 0; pointer-events: none; }
+        
+        .shelf-header { font-size: 0.7rem; font-weight: bold; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center; white-space: nowrap; }
+        .shelf-list { display: flex; flex-direction: column; gap: 4px; overflow-y: auto; flex: 1; padding-right: 2px; }
+        
+        .shelf-tab-vertical { background: rgba(255, 255, 255, 0.03); color: var(--text-secondary); border: 1px solid rgba(255, 255, 255, 0.1); padding: 6px 8px; border-radius: 6px; font-size: 0.7rem; font-family: monospace; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+        .shelf-tab-vertical:hover { background: rgba(255, 255, 255, 0.08); color: var(--text-primary); }
+        .shelf-tab-vertical.active { background: rgba(0, 255, 157, 0.15); color: var(--accent-emerald); border-color: var(--accent-emerald); font-weight: bold; }
+
+        iframe { width: 100%; height: 100%; border: none; background: #fff; }
+        .text-brief-fallback { width: 100%; height: 100%; background: #000; color: var(--accent-emerald); padding: 14px; font-family: monospace; font-size: 0.8rem; overflow-y: auto; white-space: pre-wrap; line-height: 1.4; }
+
+        .canvas-box { width: 100%; height: 110px; background: #000; border: 1px solid var(--border-glow); border-radius: 8px; cursor: crosshair; touch-action: none; flex-shrink: 0; }
+        
+        .btn { background: rgba(255, 255, 255, 0.05); color: var(--text-primary); border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 10px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.75rem; transition: all 0.2s ease; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+        .btn:hover { background: rgba(255, 255, 255, 0.15); }
+        .btn-emerald { background: var(--accent-emerald); color: #000; border: none; font-weight: 700; }
+        .btn-emerald:hover { background: #00cc7d; }
+        .btn-cyan { background: var(--accent-cyan); color: #000; border: none; font-weight: 700; }
+        .btn-cyan:hover { background: #00b3cc; }
+        .btn-gold { background: var(--accent-gold); color: #000; border: none; font-weight: 700; }
+        .btn-gold:hover { background: #e0a200; }
+        .btn-gmail { background: #EA4335; color: #fff; border: none; font-weight: 700; }
+        .btn-gmail:hover { background: #d93025; }
+        .btn-danger { background: rgba(255, 51, 102, 0.15); color: var(--accent-danger); border: 1px solid var(--accent-danger); }
+        .btn-danger:hover { background: var(--accent-danger); color: #fff; }
+        .btn-group { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+
+        textarea { width: 100%; height: 60px; background: #000; border: 1px solid var(--border-glow); border-radius: 6px; color: var(--accent-emerald); padding: 8px; font-family: monospace; font-size: 0.75rem; resize: none; flex-shrink: 0; }
+        
+        .file-input-wrapper { position: relative; overflow: hidden; display: inline-block; }
+        .file-input-wrapper input[type=file] { font-size: 100px; position: absolute; left: 0; top: 0; opacity: 0; cursor: pointer; }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(5, 7, 9, 0.85); backdrop-filter: blur(6px); display: none; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-overlay.active { display: flex; }
+        .modal-card { background: #0c1216; border: 1px solid var(--accent-cyan); border-radius: 12px; width: 90%; max-width: 400px; padding: 20px; box-shadow: 0 0 30px rgba(0, 229, 255, 0.2); }
+        .calendar-option-btn { width: 100%; margin-bottom: 8px; padding: 10px; font-size: 0.8rem; justify-content: flex-start; gap: 8px; font-family: monospace; }
+
+        .toast { position: fixed; bottom: 20px; right: 20px; background: var(--accent-emerald); color: #000; padding: 10px 20px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; box-shadow: 0 4px 15px rgba(0,255,157,0.3); transform: translateY(100px); transition: transform 0.3s ease; z-index: 1001; }
+        .toast.show { transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand-seal">
+            <div class="seal-icon"></div>
+            Prestige Sovereign Collaboration Suite
+        </div>
+        <div class="status-pill" id="suiteStatus">SOVEREIGN CONFERENCE ROOM ACTIVE</div>
+    </header>
+
+    <main>
+        <!-- SIDEBAR CONTROLS -->
+        <div class="sidebar-scroll">
+            <!-- Sovereign Video Mesh -->
+            <div class="card">
+                <div class="card-title">
+                    <span class="card-title-text">Sovereign Video Mesh</span>
+                    <span style="font-size: 0.6rem; color: var(--accent-emerald); font-family: monospace;" id="meshCameraCount">CAMERAS: READY</span>
+                </div>
+                
+                <!-- ENLARGED 340PX DYNAMIC VIDEO CONTAINER -->
+                <div class="video-grid-vertical">
+                    <!-- Host Stream -->
+                    <div class="video-feed" id="hostFeed">
+                        <div style="z-index: 2;">
+                            <div class="feed-label">HOST CAM</div>
+                            <div style="font-size: 0.8rem; font-weight: bold; color: var(--text-primary);">Sipho W. Khuzwayo</div>
+                        </div>
+                        <video id="hostVideo" autoplay="" playsinline="" muted="" style="display: block;"></video>
+                        <div class="avatar-placeholder" id="hostAvatar" style="display: none;">SWK</div>
+                    </div>
+                    
+                    <!-- Guest Stream (Auto-Switching / Hand Queue Aware) -->
+                    <div class="video-feed" id="peerFeed">
+                        <div style="z-index: 2;">
+                            <div class="feed-label" id="peerTitle">GUEST CAM</div>
+                            <div id="peerStatus" style="font-size: 0.75rem; color: var(--accent-cyan); font-weight: bold;">[ACTIVE: INVESTOR STEWARD]</div>
+                        </div>
+                        <video id="guestVideo" autoplay="" playsinline="" muted=""></video>
+                        <div class="avatar-placeholder" id="peerAvatar" style="color: var(--accent-cyan); border-color: var(--accent-cyan); background: rgba(0, 229, 255, 0.2);">IS</div>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-emerald btn-danger" id="hostVideoBtn" onclick="toggleHostVideo()" style="flex: 1;">Stop Host</button>
+                    <button class="btn btn-cyan" id="guestVideoBtn" onclick="toggleGuestVideo()" style="flex: 1;">Guest Cam</button>
+                    <button class="btn btn-gold" id="handBtn" onclick="triggerSimulatedHandRaise()" style="flex: 1;">✋ Hand Queue</button>
+                </div>
+                
+                <div style="margin-top: 6px; display: flex; gap: 4px;">
+                    <select id="simGuestSelect" class="input-field" style="margin-bottom: 0;" onchange="manuallySwitchGuest(this.value)">
+                        <option value="guest_1">Active Guest: Investor Steward</option>
+                        <option value="guest_2">Active Guest: Dr. A. Dlamini</option>
+                        <option value="guest_3">Active Guest: L. Khumalo</option>
+                    </select>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn" id="audioBtn" onclick="toggleAudio()" style="flex: 1;">Audio Loop</button>
+                    <button class="btn" id="peerBtn" onclick="togglePeerSim()" style="flex: 1;">Disconnect Guest</button>
+                </div>
+                <button class="btn" id="sessionBtn" onclick="toggleSessionState()" style="width: 100%; margin-top: 6px; border-color: var(--accent-danger); color: var(--accent-danger);">Disconnect Session</button>
+            </div>
+
+            <!-- EMBEDDED CHAT BLOCK -->
+            <div class="card">
+                <div class="card-title">
+                    <span class="card-title-text">Sovereign Live Chat</span>
+                    <span style="font-size: 0.6rem; color: var(--accent-emerald); font-family: monospace;">ENCRYPTED</span>
+                </div>
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-msg system">
+                            <span>--- SOVEREIGN MESH SESSION ESTABLISHED ---</span>
+                        </div>
+                        <div class="chat-msg peer">
+                            <div class="msg-meta">
+                                <span>Investor Steward</span>
+                                <span>10:01 SAST</span>
+                            </div>
+                            <div>Ready to review the R3.1M Capex-Buffered Ledger document.</div>
+                        </div>
+                        <div class="chat-msg host">
+                            <div class="msg-meta">
+                                <span>Sipho W. Khuzwayo</span>
+                                <span>10:02 SAST</span>
+                            </div>
+                            <div>Welcome. The brief is deployed live in the workspace reader.</div>
+                        </div>
+                    </div>
+                    <div class="chat-input-bar">
+                        <input type="text" id="chatInput" class="input-field" placeholder="Type message..." style="margin-bottom: 0;" onkeypress="handleChatKeyPress(event)">
+                        <button class="btn btn-emerald" onclick="sendChatMessage()" style="white-space: nowrap; padding: 4px 8px; font-size: 0.7rem;">Send</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audience Invitation & Vault -->
+            <div class="card">
+                <div class="card-title">
+                    <span class="card-title-text">Audience Invitation Vault</span>
+                </div>
+                
+                <div style="display: flex; gap: 4px; margin-bottom: 6px;">
+                    <input type="text" id="inviteEmail" class="input-field" list="vaultSuggestions" placeholder="Type email(s)" style="margin-bottom: 0;">
+                    <datalist id="vaultSuggestions"><option value="siphokhuzwayo12@mail.com"></option><option value="info.lepprojects@gmail"></option><option value="info.lepprojects@gmail.com"></option></datalist>
+                    <button class="btn btn-emerald" onclick="addInviteeToQueue()" style="white-space: nowrap; padding: 4px 8px; font-size: 0.7rem;">+ Save</button>
+                </div>
+
+                <input type="text" id="meetingTopic" class="input-field" value="Scapush Precision Strategic Review">
+                
+                <div class="dateTime-row">
+                    <input type="date" id="meetingDate" class="input-field">
+                    <input type="time" id="meetingTime" class="input-field" value="10:00">
+                </div>
+
+                <div style="display: flex; gap: 4px; margin-bottom: 6px;">
+                    <input type="text" id="customHostUrl" class="input-field" value="https://siphokhuzwayo12-a11y.github.io/sovereign_conference_invitation_center/index.html" style="border-color: var(--accent-cyan); margin-bottom: 0;">
+                    <button class="btn" onclick="copySuiteLink()" style="white-space: nowrap; padding: 4px 8px; font-size: 0.7rem; border-color: var(--accent-cyan); color: var(--accent-cyan);">📋 Copy</button>
+                </div>
+                
+                <div style="display: flex; gap: 4px;">
+                    <select id="inviteeDropdown" class="input-field" style="flex: 1; margin-bottom: 0;" onchange="selectInviteeFromDropdown(this)"><option value="">-- Vault Records (3) --</option>
+                    <option value="0" selected="">✔ siphokhuzwayo12@mail.com</option>
+                
+                    <option value="1">✔ info.lepprojects@gmail</option>
+                
+                    <option value="2">✔ info.lepprojects@gmail.com</option>
+                </select>
+                    <button class="btn btn-danger" onclick="deleteSelectedInvitee()" style="white-space: nowrap; padding: 4px 8px; font-size: 0.7rem;">🗑</button>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-gmail" onclick="dispatchSingleGmail()" style="width: 100%;">✉ Dispatch Active</button>
+                    <button class="btn btn-gmail" onclick="dispatchAllGmailBcc()" style="width: 100%; background: #C5221F;">✉ Dispatch ALL Vault</button>
+                    <button class="btn" onclick="openCalendarModal()" style="flex: 1; border-color: var(--accent-cyan); color: var(--accent-cyan);">📅 Calendar</button>
+                </div>
+            </div>
+
+            <!-- Architectural Whiteboard -->
+            <div class="card">
+                <div class="card-title">
+                    <span class="card-title-text">Whiteboard</span>
+                </div>
+                <canvas id="whiteboard" class="canvas-box" width="340" height="110"></canvas>
+                <div class="btn-group">
+                    <button class="btn btn-emerald" onclick="clearCanvas()" style="flex: 1;">Clear</button>
+                    <button class="btn" onclick="exportBlueprint()" style="flex: 1;">Export PNG</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN WORKSPACE READER -->
+        <div class="workspace-stack">
+            <div class="card" style="flex: 1; overflow: hidden;">
+                <div class="card-title">
+                    <span class="card-title-text">Document Reader Workspace</span>
+                    <div style="display: flex; gap: 6px;">
+                        <div class="file-input-wrapper">
+                            <button class="btn btn-emerald" style="padding: 3px 8px; font-size: 0.7rem;">+ Upload</button>
+                            <input type="file" id="documentLoader" accept=".txt,.json,.md,.html,.htm" onchange="uploadToCabinet(event)">
+                        </div>
+                        <button class="btn" onclick="saveCabinetToStorage()" style="padding: 3px 8px; font-size: 0.7rem; border-color: var(--accent-emerald); color: var(--accent-emerald);">💾 Save</button>
+                        <button class="btn" id="toggleCabinetBtn" onclick="toggleCabinet()" style="padding: 3px 8px; font-size: 0.7rem; border-color: var(--accent-gold); color: var(--accent-gold);">Shelf ➔</button>
+                    </div>
+                </div>
+
+                <div class="cabinet-workspace">
+                    <div class="doc-viewer-area" id="docViewerContainer"><iframe src="./BOARDROOM COMMAND V19.0_files/d754b43f-6729-47a0-977c-7265b2c19b0d.html"></iframe></div>
+
+                    <div class="vertical-cabinet-shelf" id="verticalShelf">
+                        <div class="shelf-header">
+                            <span>Cabinet Shelf</span>
+                            <span id="docCountBadge" style="color: var(--accent-emerald);">(9)</span>
+                        </div>
+                        <div class="shelf-list" id="shelfTabs">
+                <div class="shelf-tab-vertical " onclick="switchDocument(0)" title="Master R3.1M Brief">
+                    <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">📄 Master R3.1M Brief</span>
+                    <button onclick="deleteDocument(event, 0)" style="background: none; border: none; color: var(--accent-danger); cursor: pointer; font-size: 0.7rem; padding: 2px 4px; margin-left: 2px;" title="Delete Document">✕</button>
+                </div>
+            
+                <div class="shelf-tab-vertical " onclick="switchDocument(1)" title="Sovereign Circular Resource Park (SCRP) - eThekwini Municipality Concept Note.html">
+                    <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">📄 Sovereign Circular Resource Park (SCRP) - eThekwini Municipality Concept Note.html</span>
+                    <button onclick="deleteDocument(event, 1)" style="background: none; border: none; color: var(--accent-danger); cursor: pointer; font-size: 0.7rem; padding: 2px 4px; margin-left: 2px;" title="Delete Document">✕</button>
+                </div>
+            
+                <div class="shelf-tab-vertical " onclick="switchDocument(2)" title="Municipal PPP Proposal &amp; Master Blueprint — Sovereign Circular Resource Park (SCRP).html">
+                    <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">📄 Municipal PPP Proposal &amp; Master Blueprint — Sovereign Circular Resource Park (SCRP).html</span>
+                    <button onclick="deleteDocument(event, 2)" style="background: none; border: none; color: var(--accent-danger); cursor: pointer; font-size: 0.7rem; padding: 2px 4px; margin-left: 2px;" title="Delete Document">✕</button>
+                </div>
+            
+                <div class="shelf-tab-vertical " onclick="switchDocument(3)" title="Municipal Waste Alleviation Proposal - Green Mineral &amp; Bio-Solar Framework.html">
+                    <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">📄 Municipal Waste Alleviation Proposal - Green Mineral &amp; Bio-Solar Framework.html</span>
+                    <button onclick="deleteDocument(event, 3)" style="background: none; border: none; color: var(--accent-danger); cursor: pointer; font-size: 0.7rem; padding: 2px 4px; margin-left: 2px;" title="Delete Document">✕</button>
+                </div>
+            
+                <div class="shelf-tab-vertical " onclick="switchDocument(4)" title="Phase 1 Self-Sustainable Closed-Loop Microclimate Proof of Concept (12-Month Execution).html">
+                    <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">📄 Phase 1 Self-Sustainable Closed-Loop Microclimate Proof of Concept (12-Month Execution).html</span>
+                    <button onclick="deleteDocument(event, 4)" style="background: none; border: none; color: var(--accent-danger); cursor: pointer; font-size: 0.7rem; padding: 2px 4px; margin-left: 2px;" title="Delete Document">✕</button>
+                </div>
+            
+                <div class="shelf-tab-vertical " onclick="switchDocument(5)" title="Green Mineral Recovery Framework.html">
+                    <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">📄 Green Mineral Recovery Framework.html</span>
+                    <button onclick="deleteDocument(event, 5)" style="background: none; border: none; color: var(--accent-danger); cursor: pointer; font-size: 0.7rem; padding: 2px 4px; margin-left: 2px;" title="Delete Document">✕</button>
+                </div>
+            
+                <div class="shelf-tab-vertical " onclick="switchDocument(6)" title="Concept Note_ Sovereign Circular Resource Park (SCRP) — Draft v0.2.html">
+                    <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">📄 Concept Note_ Sovereign Circular Resource Park (SCRP) — Draft v0.2.html</span>
+                    <button onclick="deleteDocument(event, 6)" style="background: none; border: none; color: var(--accent-danger); cursor: pointer; font-size: 0.7rem; padding: 2px 4px; margin-left: 2px;" title="Delete Document">✕</button>
+                </div>
+            
+                <div class="shelf-tab-vertical " onclick="switchDocument(7)" title="SCRP Master Operational Blueprint.html">
+                    <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">📄 SCRP Master Operational Blueprint.html</span>
+                    <button onclick="deleteDocument(event, 7)" style="background: none; border: none; color: var(--accent-danger); cursor: pointer; font-size: 0.7rem; padding: 2px 4px; margin-left: 2px;" title="Delete Document">✕</button>
+                </div>
+            
+                <div class="shelf-tab-vertical active" onclick="switchDocument(8)" title="closed-loop-bio-solar-engine-mvp.html">
+                    <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">📄 closed-loop-bio-solar-engine-mvp.html</span>
+                    <button onclick="deleteDocument(event, 8)" style="background: none; border: none; color: var(--accent-danger); cursor: pointer; font-size: 0.7rem; padding: 2px 4px; margin-left: 2px;" title="Delete Document">✕</button>
+                </div>
+            </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decision Memory -->
+            <div class="card">
+                <div class="card-title">
+                    <span class="card-title-text">Live Meeting Record &amp; Decision Memory</span>
+                </div>
+                <textarea id="liveMeetingNotes" placeholder="Type real-time investor questions, decisions, or agreement modifications..."></textarea>
+                <button class="btn btn-emerald" style="width: 100%; margin-top: 6px; padding: 4px;" onclick="saveMeetingNotes()">Commit Notes to Memory</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Multi-Calendar Modal -->
+    <div class="modal-overlay" id="calendarModal">
+        <div class="modal-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                <span style="color: var(--accent-cyan); font-weight: bold; letter-spacing: 1px; font-size: 0.85rem;">📅 CALENDAR LAUNCHER</span>
+                <button class="btn btn-danger" onclick="closeCalendarModal()" style="padding: 2px 6px; font-size: 0.7rem;">✕</button>
+            </div>
+            
+            <a id="gCalLink" class="btn calendar-option-btn" target="_blank" onclick="closeCalendarModal()">🌐 Launch Google Calendar</a>
+            <a id="outlookLink" class="btn calendar-option-btn" target="_blank" onclick="closeCalendarModal()">📧 Launch Outlook Web</a>
+            <a id="yahooLink" class="btn calendar-option-btn" target="_blank" onclick="closeCalendarModal()">🟣 Launch Yahoo Calendar</a>
+            <button class="btn calendar-option-btn" onclick="triggerIcsDownload()" style="border-color: var(--accent-emerald); color: var(--accent-emerald);">💾 Download Universal .ICS File</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">Saved "closed-loop-bio-solar-engine-mvp.html"</div>
+
+    <script>
+        // Multi-Guest State & Audio Detection Registry
+        let connectedGuests = [
+            { id: "guest_1", name: "Investor Steward", avatar: "IS", stream: null, handRaised: false },
+            { id: "guest_2", name: "Dr. A. Dlamini", avatar: "AD", stream: null, handRaised: false },
+            { id: "guest_3", name: "L. Khumalo", avatar: "LK", stream: null, handRaised: false }
+        ];
+
+        let currentGuestId = "guest_1";
+        let handRaiseQueue = [];
+        let hostStream = null;
+        let guestStream = null;
+        let audioCtx = null;
+        let oscillator = null;
+        let audioPlaying = false;
+        let isConnected = true;
+        let peerConnected = true;
+        let cabinetOpen = true;
+        let currentBlobUrl = null;
+
+        let inviteeLedger = JSON.parse(localStorage.getItem('sovereign_vault_emails')) || [
+            { email: "info.lepprojects@gmail.com", topic: "Scapush Precision Strategic Review", status: "Saved in Vault", timestamp: new Date().toLocaleTimeString() },
+            { email: "siphokhuzwayo12@gmail.com", topic: "Scapush Precision Strategic Review", status: "Saved in Vault", timestamp: new Date().toLocaleTimeString() }
+        ];
+
+        let selectedInviteeIndex = 0;
+
+        const DEFAULT_MASTER_BRIEF = {
+            name: "Master R3.1M Brief",
+            type: "text",
+            content: `====================================================================\n[PRESTIGE MASTER INFRASTRUCTURE: R 3.1M CAPEX-BUFFERED LEDGER]\n====================================================================\nASSET VALUATION:    R 3,100,000 ZAR (Sovereign Infrastructure)\nLEAD ARCHITECT:     Sipho Wiseman Khuzwayo | Scapush Precision\n\n1. CAPITAL ALLOCATION:\n   - Energy Hub (R 1.2M): 30 kW Solar PV + 30 kW BESS Battery Array\n   - Bio-Reactor (R 1.1M): 70 m³ Primary Digester & Substrate Loops\n   - Generation & Thermal (R 800k): CHP Co-Gen + Hydronic Thermal Manifold\n\n2. REVENUE & VALORIZATION VECTORS:\n   - Vector 1: 24/7 Baseload Electricity Generation\n   - Vector 2: Reclaimed Co-Gen Heat for Microclimate Lock\n   - Vector 3: Premium Solid Organic N-P-K Bio-Fertilizer\n   - Vector 4: Concentrated Bio-Available Liquid Foliar Digestate\n   - Vector 5: Scrubbed Bio-CO2 Yield Acceleration Vector\n====================================================================`
+        };
+
+        let documentCabinet = JSON.parse(localStorage.getItem('sovereign_document_cabinet')) || [ DEFAULT_MASTER_BRIEF ];
+        let activeDocIndex = parseInt(localStorage.getItem('sovereign_active_doc_index') || '0', 10);
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const datePicker = document.getElementById('meetingDate');
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            datePicker.value = tomorrow.toISOString().split('T')[0];
+            
+            updateInviteeDropdown();
+            renderCabinet();
+            initWhiteboard();
+            
+            const savedNotes = localStorage.getItem('sovereign_meeting_notes');
+            if (savedNotes) {
+                document.getElementById('liveMeetingNotes').value = savedNotes;
+            }
+        });
+
+        // ACTIVE SPEAKER SWITCHING & OVERLAY MANAGEMENT
+        function switchToGuest(guestId) {
+            const guest = connectedGuests.find(g => g.id === guestId);
+            if (!guest) return;
+
+            currentGuestId = guestId;
+
+            // DOM Overlay Update
+            const peerTitle = document.getElementById('peerTitle');
+            const peerStatus = document.getElementById('peerStatus');
+            const peerAvatar = document.getElementById('peerAvatar');
+
+            peerTitle.innerText = guest.handRaised ? `✋ GUEST CAM (QUEUED)` : `GUEST CAM`;
+            peerStatus.innerText = `[ACTIVE: ${guest.name.toUpperCase()}]`;
+            peerAvatar.innerText = guest.avatar;
+
+            document.getElementById('simGuestSelect').value = guestId;
+            showToast(`Active Camera Switched To: ${guest.name}`);
+        }
+
+        function manuallySwitchGuest(guestId) {
+            switchToGuest(guestId);
+        }
+
+        function triggerSimulatedHandRaise() {
+            // Select next guest who doesn't have hand raised
+            const unraised = connectedGuests.find(g => !g.handRaised && g.id !== currentGuestId);
+            if (!unraised) {
+                showToast("All guests currently queued.");
+                return;
+            }
+
+            unraised.handRaised = true;
+            handRaiseQueue.push(unraised.id);
+            
+            updateQueueBadgeUI();
+            showToast(`✋ Hand Raised: ${unraised.name} (Queue Pos: #${handRaiseQueue.length})`);
+
+            // Auto switch if queue is processed
+            setTimeout(() => {
+                const nextId = handRaiseQueue.shift();
+                const queuedGuest = connectedGuests.find(g => g.id === nextId);
+                if (queuedGuest) {
+                    queuedGuest.handRaised = false;
+                    switchToGuest(nextId);
+                    updateQueueBadgeUI();
+                }
+            }, 2000);
+        }
+
+        function updateQueueBadgeUI() {
+            const badge = document.getElementById('meshCameraCount');
+            const count = handRaiseQueue.length;
+            if (count > 0) {
+                badge.innerText = `QUEUE: ${count} HAND(S)`;
+                badge.style.color = `var(--accent-gold)`;
+            } else {
+                badge.innerText = `CAMERAS: READY`;
+                badge.style.color = `var(--accent-emerald)`;
+            }
+        }
+
+        function attachActiveSpeakerDetector(guestId, audioStream) {
+            try {
+                const context = new (window.AudioContext || window.webkitAudioContext)();
+                const source = context.createMediaStreamSource(audioStream);
+                const analyser = context.createAnalyser();
+                analyser.fftSize = 256;
+                source.connect(analyser);
+
+                const bufferLength = analyser.frequencyBinCount;
+                const dataArray = new Uint8Array(bufferLength);
+
+                setInterval(() => {
+                    analyser.getByteFrequencyData(dataArray);
+                    let sum = 0;
+                    for (let i = 0; i < bufferLength; i++) sum += dataArray[i];
+                    let volume = sum / bufferLength;
+
+                    // Decibel trigger threshold
+                    if (volume > 30) {
+                        if (handRaiseQueue.length > 0 && handRaiseQueue[0] === guestId) {
+                            handRaiseQueue.shift();
+                            updateQueueBadgeUI();
+                            switchToGuest(guestId);
+                        } else if (handRaiseQueue.length === 0 && currentGuestId !== guestId) {
+                            switchToGuest(guestId);
+                        }
+                    }
+                }, 200);
+            } catch (err) {
+                console.warn("Audio Analyser setup skipped.", err);
+            }
+        }
+
+        function saveVaultToStorage() {
+            localStorage.setItem('sovereign_vault_emails', JSON.stringify(inviteeLedger));
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function handleChatKeyPress(e) {
+            if (e.key === 'Enter') sendChatMessage();
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            const chatMessages = document.getElementById('chatMessages');
+            const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'chat-msg host';
+            msgDiv.innerHTML = `
+                <div class="msg-meta">
+                    <span>Sipho W. Khuzwayo</span>
+                    <span>${timeStr} SAST</span>
+                </div>
+                <div>${escapeHtml(msg)}</div>
+            `;
+
+            chatMessages.appendChild(msgDiv);
+            input.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        async function toggleHostVideo() {
+            const videoElem = document.getElementById('hostVideo');
+            const avatarElem = document.getElementById('hostAvatar');
+            const btn = document.getElementById('hostVideoBtn');
+
+            if (!hostStream) {
+                try {
+                    hostStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+                    videoElem.srcObject = hostStream;
+                    videoElem.style.display = 'block';
+                    avatarElem.style.display = 'none';
+                    btn.innerText = "Stop Host";
+                    btn.classList.add('btn-danger');
+                    showToast("Host Camera Active.");
+                } catch (err) {
+                    showToast("Host Camera Access Denied.");
+                }
+            } else {
+                hostStream.getTracks().forEach(track => track.stop());
+                hostStream = null;
+                videoElem.style.display = 'none';
+                avatarElem.style.display = 'flex';
+                btn.innerText = "Host Cam";
+                btn.classList.remove('btn-danger');
+                showToast("Host Camera Closed.");
+            }
+        }
+
+        async function toggleGuestVideo() {
+            const videoElem = document.getElementById('guestVideo');
+            const avatarElem = document.getElementById('peerAvatar');
+            const btn = document.getElementById('guestVideoBtn');
+
+            if (!guestStream) {
+                try {
+                    const devices = await navigator.mediaDevices.enumerateDevices();
+                    const videoDevices = devices.filter(d => d.kind === 'videoinput');
+
+                    let videoConstraints = true;
+                    if (videoDevices.length > 1) {
+                        videoConstraints = { deviceId: { exact: videoDevices[1].deviceId } };
+                    }
+
+                    guestStream = await navigator.mediaDevices.getUserMedia({ video: videoConstraints, audio: true });
+                    videoElem.srcObject = guestStream;
+                    videoElem.style.display = 'block';
+                    avatarElem.style.display = 'none';
+                    btn.innerText = "Stop Guest";
+                    btn.classList.add('btn-danger');
+                    
+                    // Attach Active Speaker Analyser
+                    attachActiveSpeakerDetector(currentGuestId, guestStream);
+                    
+                    showToast("Guest Camera Active & Speaker Detection Engaged.");
+                } catch (err) {
+                    showToast("Guest Camera Access Denied.");
+                }
+            } else {
+                guestStream.getTracks().forEach(track => track.stop());
+                guestStream = null;
+                videoElem.style.display = 'none';
+                avatarElem.style.display = 'flex';
+                btn.innerText = "Guest Cam";
+                btn.classList.remove('btn-danger');
+                showToast("Guest Camera Closed.");
+            }
+        }
+
+        function toggleAudio() {
+            const btn = document.getElementById('audioBtn');
+            if (!audioPlaying) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                oscillator = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                oscillator.type = 'sine';
+                oscillator.frequency.setValueAtTime(440, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+                oscillator.connect(gain);
+                gain.connect(audioCtx.destination);
+                oscillator.start();
+                audioPlaying = true;
+                btn.innerText = "Mute Audio";
+                btn.classList.add('btn-danger');
+                showToast("Audio Loop Active.");
+            } else {
+                if (oscillator) oscillator.stop();
+                audioPlaying = false;
+                btn.innerText = "Audio Loop";
+                btn.classList.remove('btn-danger');
+                showToast("Audio Muted.");
+            }
+        }
+
+        function togglePeerSim() {
+            const peerStatus = document.getElementById('peerStatus');
+            const peerAvatar = document.getElementById('peerAvatar');
+            const btn = document.getElementById('peerBtn');
+
+            if (peerConnected) {
+                peerConnected = false;
+                if (guestStream) {
+                    guestStream.getTracks().forEach(track => track.stop());
+                    guestStream = null;
+                    document.getElementById('guestVideo').style.display = 'none';
+                    document.getElementById('guestVideoBtn').innerText = "Guest Cam";
+                    document.getElementById('guestVideoBtn').classList.remove('btn-danger');
+                }
+                peerStatus.innerText = "[OFFLINE]";
+                peerStatus.style.color = "var(--accent-danger)";
+                peerAvatar.style.opacity = "0.3";
+                btn.innerText = "Reconnect";
+                showToast("Guest Steward Disconnected.");
+            } else {
+                peerConnected = true;
+                peerStatus.innerText = `[ACTIVE: ${connectedGuests[0].name.toUpperCase()}]`;
+                peerStatus.style.color = "var(--accent-cyan)";
+                peerAvatar.style.opacity = "1";
+                btn.innerText = "Disconnect Guest";
+                showToast("Guest Steward Joined Mesh.");
+            }
+        }
+
+        function toggleSessionState() {
+            const pill = document.getElementById('suiteStatus');
+            const btn = document.getElementById('sessionBtn');
+
+            if (isConnected) {
+                isConnected = false;
+                pill.innerText = "CONFERENCE TERMINATED";
+                pill.classList.add('disconnected');
+                btn.innerText = "Re-initialize Session";
+                btn.classList.remove('btn-danger');
+                showToast("Conference Session Terminated.");
+            } else {
+                isConnected = true;
+                pill.innerText = "SOVEREIGN CONFERENCE ROOM ACTIVE";
+                pill.classList.remove('disconnected');
+                btn.innerText = "Disconnect Session";
+                btn.classList.add('btn-danger');
+                showToast("Conference Suite Re-initialized.");
+            }
+        }
+
+        function getActiveSuiteUrl() {
+            const customUrl = document.getElementById('customHostUrl').value.trim();
+            return customUrl || "https://siphokhuzwayo12-a11y.github.io/sovereign_conference_invitation_center/index.html";
+        }
+
+        function copySuiteLink() {
+            navigator.clipboard.writeText(getActiveSuiteUrl()).then(() => {
+                showToast("Suite Link Copied!");
+            }).catch(() => showToast("Copy failed."));
+        }
+
+        function addInviteeToQueue() {
+            const rawInput = document.getElementById('inviteEmail').value.trim();
+            const topic = document.getElementById('meetingTopic').value.trim();
+            if (!rawInput) return showToast("Enter email address.");
+
+            const emails = rawInput.split(/[\s,]+/).filter(e => e.includes('@'));
+            if (!emails.length) return showToast("Valid email required.");
+
+            emails.forEach(email => {
+                const idx = inviteeLedger.findIndex(i => i.email.toLowerCase() === email.toLowerCase());
+                if (idx === -1) {
+                    inviteeLedger.push({ email, topic, status: "Saved in Vault", timestamp: new Date().toLocaleTimeString() });
+                }
+            });
+
+            saveVaultToStorage();
+            updateInviteeDropdown();
+            document.getElementById('inviteEmail').value = "";
+            showToast("Vault Updated.");
+        }
+
+        function updateInviteeDropdown() {
+            const dropdown = document.getElementById('inviteeDropdown');
+            const dataList = document.getElementById('vaultSuggestions');
+            
+            dataList.innerHTML = inviteeLedger.map(inv => `<option value="${inv.email}">`).join('');
+            
+            if (!inviteeLedger.length) {
+                dropdown.innerHTML = `<option value="">-- Vault Empty --</option>`;
+                return;
+            }
+
+            dropdown.innerHTML = `<option value="">-- Vault Records (${inviteeLedger.length}) --</option>` +
+                inviteeLedger.map((inv, idx) => `
+                    <option value="${idx}" ${idx === selectedInviteeIndex ? 'selected' : ''}>✔ ${inv.email}</option>
+                `).join('');
+        }
+
+        function selectInviteeFromDropdown(e) {
+            if (e.value === "") return;
+            selectedInviteeIndex = parseInt(e.value);
+            const inv = inviteeLedger[selectedInviteeIndex];
+            document.getElementById('inviteEmail').value = inv.email;
+            document.getElementById('meetingTopic').value = inv.topic;
+            showToast(`Selected: ${inv.email}`);
+        }
+
+        function deleteSelectedInvitee() {
+            if (!inviteeLedger.length) return showToast("Vault is empty.");
+            const removed = inviteeLedger.splice(selectedInviteeIndex, 1);
+            selectedInviteeIndex = Math.max(0, inviteeLedger.length - 1);
+            saveVaultToStorage();
+            updateInviteeDropdown();
+            showToast(`Deleted ${removed[0]?.email || 'record'}`);
+        }
+
+        function dispatchSingleGmail() {
+            if (!inviteeLedger.length) return showToast("Vault is empty.");
+            const inv = inviteeLedger[selectedInviteeIndex] || inviteeLedger[0];
+            const topic = document.getElementById('meetingTopic').value.trim();
+            const dateVal = document.getElementById('meetingDate').value;
+            const timeVal = document.getElementById('meetingTime').value;
+            const bodyText = `Honorable Steward,\n\nYou are invited to join the Sovereign Executive Conference Suite.\n\nTopic: ${topic}\nDate & Time: ${dateVal} at ${timeVal} SAST\nAccess Link: ${getActiveSuiteUrl()}\nPasskey: SCAPUSH-PRECISION-7799-BIO-SOLAR-DOMED-2026\n\nLead Architect: Sipho Wiseman Khuzwayo`;
+
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(inv.email)}&su=${encodeURIComponent(topic + ' - Scheduled Call')}&body=${encodeURIComponent(bodyText)}`;
+            
+            inv.status = "Dispatched & Saved";
+            saveVaultToStorage();
+            updateInviteeDropdown();
+            window.open(gmailUrl, '_blank');
+            showToast(`Dispatched to ${inv.email}`);
+        }
+
+        function dispatchAllGmailBcc() {
+            if (!inviteeLedger.length) return showToast("Vault is empty.");
+            const bccEmails = inviteeLedger.map(i => i.email).join(',');
+            const topic = document.getElementById('meetingTopic').value.trim();
+            const dateVal = document.getElementById('meetingDate').value;
+            const timeVal = document.getElementById('meetingTime').value;
+            const bodyText = `Honorable Stewards,\n\nYou are invited to join the Sovereign Executive Conference Suite.\n\nTopic: ${topic}\nDate & Time: ${dateVal} at ${timeVal} SAST\nAccess Link: ${getActiveSuiteUrl()}\nPasskey: SCAPUSH-PRECISION-7799-BIO-SOLAR-DOMED-2026\n\nLead Architect: Sipho Wiseman Khuzwayo`;
+
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&bcc=${encodeURIComponent(bccEmails)}&su=${encodeURIComponent(topic + ' - Executive Invitation')}&body=${encodeURIComponent(bodyText)}`;
+
+            inviteeLedger.forEach(i => i.status = "BCC Vault Dispatched");
+            saveVaultToStorage();
+            updateInviteeDropdown();
+            window.open(gmailUrl, '_blank');
+            showToast(`Batch Dispatch Launched for ${inviteeLedger.length} Recipients!`);
+        }
+
+        function openCalendarModal() {
+            const topic = document.getElementById('meetingTopic').value.trim() || "Sovereign Conference";
+            const dateVal = document.getElementById('meetingDate').value || "2026-09-30";
+            const timeVal = document.getElementById('meetingTime').value || "10:00";
+            const roomLink = getActiveSuiteUrl();
+
+            const startIso = `${dateVal.replace(/-/g, '')}T${timeVal.replace(':', '')}00Z`;
+            const startHour = parseInt(timeVal.split(':')[0], 10);
+            const endHour = String((startHour + 1) % 24).padStart(2, '0');
+            const endIso = `${dateVal.replace(/-/g, '')}T${endHour}${timeVal.split(':')[1]}00Z`;
+
+            const details = `Join Sovereign Conference Suite: ${roomLink}\nPasskey: SCAPUSH-PRECISION-7799-BIO-SOLAR-DOMED-2026`;
+
+            document.getElementById('gCalLink').href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(topic)}&dates=${startIso}/${endIso}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(roomLink)}`;
+            document.getElementById('outlookLink').href = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${encodeURIComponent(topic)}&startdt=${dateVal}T${timeVal}:00&body=${encodeURIComponent(details)}&location=${encodeURIComponent(roomLink)}`;
+            document.getElementById('yahooLink').href = `https://calendar.yahoo.com/?v=60&title=${encodeURIComponent(topic)}&st=${startIso}&in_loc=${encodeURIComponent(roomLink)}&desc=${encodeURIComponent(details)}`;
+
+            document.getElementById('calendarModal').classList.add('active');
+        }
+
+        function closeCalendarModal() {
+            document.getElementById('calendarModal').classList.remove('active');
+        }
+
+        function triggerIcsDownload() {
+            const topic = document.getElementById('meetingTopic').value.trim() || "Sovereign Conference";
+            const dateVal = document.getElementById('meetingDate').value || "2026-09-30";
+            const timeVal = document.getElementById('meetingTime').value || "10:00";
+            const roomLink = getActiveSuiteUrl();
+
+            const startIso = `${dateVal.replace(/-/g, '')}T${timeVal.replace(':', '')}00Z`;
+            const endHour = String((parseInt(timeVal.split(':')[0], 10) + 1) % 24).padStart(2, '0');
+            const endIso = `${dateVal.replace(/-/g, '')}T${endHour}${timeVal.split(':')[1]}00Z`;
+
+            const icsData = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Lwandile Engineering//Scapush Precision//EN\nBEGIN:VEVENT\nSUMMARY:${topic}\nLOCATION:${roomLink}\nDESCRIPTION:Join Suite: ${roomLink}\\nPasskey: SCAPUSH-PRECISION-7799\nDTSTART:${startIso}\nDTEND:${endIso}\nEND:VEVENT\nEND:VCALENDAR`;
+
+            const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.setAttribute('download', 'sovereign_invite.ics');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            closeCalendarModal();
+            showToast(".ICS File Generated.");
+        }
+
+        function saveCabinetToStorage() {
+            try {
+                localStorage.setItem('sovereign_document_cabinet', JSON.stringify(documentCabinet));
+                localStorage.setItem('sovereign_active_doc_index', activeDocIndex.toString());
+                showToast("Workspace Saved to Storage Memory.");
+            } catch (err) {
+                showToast("Storage Quota Exceeded.");
+            }
+        }
+
+        function renderCabinet() {
+            const shelfTabs = document.getElementById('shelfTabs');
+            const badge = document.getElementById('docCountBadge');
+            
+            if (!documentCabinet.length) {
+                documentCabinet = [ DEFAULT_MASTER_BRIEF ];
+                activeDocIndex = 0;
+            }
+
+            if (activeDocIndex >= documentCabinet.length) {
+                activeDocIndex = Math.max(0, documentCabinet.length - 1);
+            }
+
+            badge.innerText = `(${documentCabinet.length})`;
+
+            shelfTabs.innerHTML = documentCabinet.map((doc, idx) => `
+                <div class="shelf-tab-vertical ${idx === activeDocIndex ? 'active' : ''}" onclick="switchDocument(${idx})" title="${doc.name}">
+                    <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1;">📄 ${doc.name}</span>
+                    <button onclick="deleteDocument(event, ${idx})" style="background: none; border: none; color: var(--accent-danger); cursor: pointer; font-size: 0.7rem; padding: 2px 4px; margin-left: 2px;" title="Delete Document">✕</button>
+                </div>
+            `).join('');
+
+            displayActiveDocument();
+        }
+
+        function switchDocument(idx) {
+            if (idx >= 0 && idx < documentCabinet.length) {
+                activeDocIndex = idx;
+                localStorage.setItem('sovereign_active_doc_index', activeDocIndex.toString());
+                renderCabinet();
+            }
+        }
+
+        function displayActiveDocument() {
+            const container = document.getElementById('docViewerContainer');
+            const doc = documentCabinet[activeDocIndex] || documentCabinet[0];
+
+            if (!doc) return;
+
+            if (currentBlobUrl) {
+                URL.revokeObjectURL(currentBlobUrl);
+                currentBlobUrl = null;
+            }
+
+            if (doc.type === 'html') {
+                const blob = new Blob([doc.content], { type: 'text/html' });
+                currentBlobUrl = URL.createObjectURL(blob);
+                container.innerHTML = `<iframe src="${currentBlobUrl}"></iframe>`;
+            } else {
+                container.innerHTML = `<div class="text-brief-fallback">${escapeHtml(doc.content)}</div>`;
+            }
+        }
+
+        function uploadToCabinet(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                const isHtml = file.name.endsWith('.html') || file.name.endsWith('.htm');
+                
+                documentCabinet.push({
+                    name: file.name,
+                    type: isHtml ? 'html' : 'text',
+                    content: evt.target.result
+                });
+
+                activeDocIndex = documentCabinet.length - 1;
+                saveCabinetToStorage();
+                renderCabinet();
+                showToast(`Saved "${file.name}"`);
+            };
+            reader.readAsText(file);
+        }
+
+        function deleteDocument(event, idx) {
+            event.stopPropagation();
+            
+            const removedName = documentCabinet[idx].name;
+            documentCabinet.splice(idx, 1);
+
+            if (activeDocIndex >= documentCabinet.length) {
+                activeDocIndex = Math.max(0, documentCabinet.length - 1);
+            }
+
+            saveCabinetToStorage();
+            renderCabinet();
+            showToast(`Deleted "${removedName}"`);
+        }
+
+        function toggleCabinet() {
+            const shelf = document.getElementById('verticalShelf');
+            const btn = document.getElementById('toggleCabinetBtn');
+            if (cabinetOpen) {
+                shelf.classList.add('collapsed');
+                btn.innerText = "Shelf ➔";
+                cabinetOpen = false;
+            } else {
+                shelf.classList.remove('collapsed');
+                btn.innerText = "Shelf ➔";
+                cabinetOpen = true;
+            }
+        }
+
+        let canvas, ctx, drawing = false;
+
+        function initWhiteboard() {
+            canvas = document.getElementById('whiteboard');
+            ctx = canvas.getContext('2d');
+            ctx.strokeStyle = '#00FF9D';
+            ctx.lineWidth = 2;
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseleave', stopDrawing);
+
+            canvas.addEventListener('touchstart', (e) => { startDrawing(e.touches[0]); e.preventDefault(); });
+            canvas.addEventListener('touchmove', (e) => { draw(e.touches[0]); e.preventDefault(); });
+            canvas.addEventListener('touchend', stopDrawing);
+        }
+
+        function startDrawing(e) {
+            drawing = true;
+            const rect = canvas.getBoundingClientRect();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        }
+
+        function draw(e) {
+            if (!drawing) return;
+            const rect = canvas.getBoundingClientRect();
+            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            ctx.stroke();
+        }
+
+        function stopDrawing() { drawing = false; }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            showToast("Whiteboard Cleared.");
+        }
+
+        function exportBlueprint() {
+            const image = canvas.toDataURL("image/png");
+            const link = document.createElement('a');
+            link.download = 'sovereign_blueprint.png';
+            link.href = image;
+            link.click();
+            showToast("PNG Exported.");
+        }
+
+        function saveMeetingNotes() {
+            const notes = document.getElementById('liveMeetingNotes').value;
+            localStorage.setItem('sovereign_meeting_notes', notes);
+            showToast("Notes Saved.");
+        }
+    </script>
+
+</body></html>
